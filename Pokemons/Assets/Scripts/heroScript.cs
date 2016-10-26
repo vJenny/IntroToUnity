@@ -84,4 +84,10 @@ public class heroScript : MonoBehaviour
         }
     }
 
+    void OnGUI()
+    {
+        GUI.backgroundColor = Color.gray;
+        GUI.Box(new Rect(0, 0, 100, 100), "Score: " + _score);
+    }
+
 }
