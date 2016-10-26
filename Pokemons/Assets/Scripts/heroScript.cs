@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.ComponentModel;
 using UnityEngine.SceneManagement;
 
 public class heroScript : MonoBehaviour
@@ -14,11 +15,15 @@ public class heroScript : MonoBehaviour
     // вспомогательные переменные
     private float _hLocation;
     private bool _grounded;
+    private bool _rightDir;
 
     // константы
     private const float CheckRatio = 0.2f;
 
-    void Start () { }
+    void Start()
+    {
+        _rightDir = true;
+    }
 
     void FixedUpdate()
     {
@@ -34,5 +39,16 @@ public class heroScript : MonoBehaviour
             hero.AddForce(new Vector2(0f, JumpForce)); // добавляем движение вверх, 0 по оси Ох
 
         hero.velocity = new Vector2(_hLocation * MaxSpeed, hero.velocity.y);
+
+        if (_hLocation > 0 && !_rightDir || _hLocation < 0 && _rightDir)
+            Flip();
+    }
+
+    void Flip()
+    {
+        _rightDir = !_rightDir;
+        var scale = transform.localScale;
+        scale.x *= -1;
+        transform.localScale = scale;
     }
 }
