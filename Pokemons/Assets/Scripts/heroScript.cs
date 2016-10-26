@@ -10,10 +10,15 @@ public class heroScript : MonoBehaviour
     public LayerMask Ground;
     public Transform GroundDetector;
 
+    public Sprite JumpingHero;
+    public Sprite RunningHero;
+
     public float JumpForce = 500f;
 
     // вспомогательные переменные
     private float _hLocation;
+    private float _vLocation;
+
     private bool _grounded;
     private bool _rightDir;
 
@@ -29,6 +34,7 @@ public class heroScript : MonoBehaviour
     {
         _grounded = Physics2D.OverlapCircle(GroundDetector.position, CheckRatio, Ground); // определяем пересечение с землей
         _hLocation = Input.GetAxis("Horizontal");
+        _vLocation = Input.GetAxis("Vertical");
     }
 
     void Update()
@@ -40,15 +46,31 @@ public class heroScript : MonoBehaviour
 
         hero.velocity = new Vector2(_hLocation * MaxSpeed, hero.velocity.y);
 
-        if (_hLocation > 0 && !_rightDir || _hLocation < 0 && _rightDir)
+        if (_hLocation > 0 && !_rightDir || _hLocation < 0 && _rightDir) // если направление движения и направление героя не совпадает - переворачиваем
             Flip();
+
+        if (_vLocation > 0)
+            Jump();
+        if (_grounded)
+            Run();
     }
 
     void Flip()
     {
         _rightDir = !_rightDir;
-        var scale = transform.localScale;
+        var scale = transform.localScale; // отвечает за положение героя относительно своей оси
         scale.x *= -1;
         transform.localScale = scale;
     }
+
+    void Run()
+    {
+        GetComponent<SpriteRenderer>().sprite = RunningHero;
+    }
+
+    void Jump()
+    {
+        GetComponent<SpriteRenderer>().sprite = JumpingHero;
+    }
+
 }
