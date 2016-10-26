@@ -87,7 +87,13 @@ public class heroScript : MonoBehaviour
     void OnGUI()
     {
         GUI.backgroundColor = Color.gray;
-        GUI.Box(new Rect(0, 0, 100, 100), "Score: " + _score);
+        GUI.Box(new Rect(0, 0, 100, 40), "Score: " + _score);
+    }
+
+    void OnCollisionEnter2D(Collision2D col)
+    {
+        if (col.gameObject.tag == "Crash")
+            SceneManager.LoadScene("level1");
     }
 
 }
