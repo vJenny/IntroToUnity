@@ -54,6 +54,12 @@ public class heroScript : MonoBehaviour
             Jump();
         if (_grounded)
             Run();
+
+        if (Input.GetKey(KeyCode.Escape))
+            Application.Quit();
+
+        if (Input.GetKey(KeyCode.R))
+            SceneManager.LoadScene("level1");
     }
 
     void Flip()
