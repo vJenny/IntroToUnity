@@ -22,6 +22,8 @@ public class heroScript : MonoBehaviour
     private bool _grounded;
     private bool _rightDir;
 
+    private int _score;
+
     // константы
     private const float CheckRatio = 0.2f;
 
@@ -71,6 +73,15 @@ public class heroScript : MonoBehaviour
     void Jump()
     {
         GetComponent<SpriteRenderer>().sprite = JumpingHero;
+    }
+
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.gameObject.tag == "Pokemon")
+        {
+            ++_score;
+            Destroy(col.gameObject);
+        }
     }
 
 }
