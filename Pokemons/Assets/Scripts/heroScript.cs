@@ -1,6 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.ComponentModel;
 using UnityEngine.SceneManagement;
 
 public class heroScript : MonoBehaviour
@@ -48,7 +46,8 @@ public class heroScript : MonoBehaviour
 
         hero.velocity = new Vector2(_hLocation * MaxSpeed, hero.velocity.y);
 
-        if (_hLocation > 0 && !_rightDir || _hLocation < 0 && _rightDir) // если направление движения и направление героя не совпадает - переворачиваем
+        // если направление движения и направление героя не совпадает - переворачиваем
+        if (_hLocation > 0 && !_rightDir || _hLocation < 0 && _rightDir) 
             Flip();
 
         if (_vLocation > 0)
@@ -94,6 +93,8 @@ public class heroScript : MonoBehaviour
     {
         if (col.gameObject.tag == "Crash")
             SceneManager.LoadScene("level1");
+        if (col.gameObject.name == "nextLevelPortal")
+            SceneManager.LoadScene("level2");
     }
 
 }
