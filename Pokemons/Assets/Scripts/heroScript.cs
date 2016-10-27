@@ -34,15 +34,19 @@ public class heroScript : MonoBehaviour
     {
         _grounded = Physics2D.OverlapCircle(GroundDetector.position, CheckRatio, Ground); // определяем пересечение с землей
         _hLocation = Input.GetAxis("Horizontal");
-        _vLocation = Input.GetAxis("Vertical");
+        // _vLocation = Input.GetAxis("Vertical");
     }
 
     void Update()
     {
         var hero = GetComponent<Rigidbody2D>();
 
-        if (_grounded && (Input.GetKeyDown(KeyCode.DownArrow) || Input.GetKeyDown(KeyCode.UpArrow)))
+        if (_grounded && (Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.UpArrow)))
+        {
             hero.AddForce(new Vector2(0f, JumpForce)); // добавляем движение вверх, 0 по оси Ох
+            Jump();
+        }
+             
 
         hero.velocity = new Vector2(_hLocation * MaxSpeed, hero.velocity.y);
 
@@ -50,8 +54,8 @@ public class heroScript : MonoBehaviour
         if (_hLocation > 0 && !_rightDir || _hLocation < 0 && _rightDir) 
             Flip();
 
-        if (_vLocation > 0)
-            Jump();
+        /*if (_vLocation > 0)
+            Jump();*/
         if (_grounded)
             Run();
 
