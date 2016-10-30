@@ -15,7 +15,6 @@ public class heroScript : MonoBehaviour
 
     // вспомогательные переменные
     private float _hLocation;
-    private float _vLocation;
 
     private bool _grounded;
     private bool _rightDir;
@@ -34,7 +33,6 @@ public class heroScript : MonoBehaviour
     {
         _grounded = Physics2D.OverlapCircle(GroundDetector.position, CheckRatio, Ground); // определяем пересечение с землей
         _hLocation = Input.GetAxis("Horizontal");
-        // _vLocation = Input.GetAxis("Vertical");
     }
 
     void Update()
@@ -53,11 +51,11 @@ public class heroScript : MonoBehaviour
         // если направление движения и направление героя не совпадает - переворачиваем
         if (_hLocation > 0 && !_rightDir || _hLocation < 0 && _rightDir) 
             Flip();
-
-        /*if (_vLocation > 0)
-            Jump();*/
+        
         if (_grounded)
             Run();
+        else
+            Jump();
 
         if (Input.GetKey(KeyCode.Escape))
             Application.Quit();
